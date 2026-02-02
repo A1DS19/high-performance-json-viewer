@@ -1,0 +1,64 @@
+CompileFlags:
+  Add:
+    - -std=c++23
+    - -Wall
+    - -Wextra
+  Remove:
+    - -W*
+  Compiler: g++
+
+Index:
+  Background: Build
+
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+  ClangTidy:
+    Add:
+      - modernize-*
+      - performance-*
+      - readability-*
+    Remove:
+      - modernize-use-trailing-return-type
+    CheckOptions:
+      # Types/Classes: PascalCase
+      readability-identifier-naming.ClassCase: CamelCase
+      readability-identifier-naming.StructCase: CamelCase
+      readability-identifier-naming.EnumCase: CamelCase
+      readability-identifier-naming.TypedefCase: CamelCase
+      readability-identifier-naming.TypeAliasCase: CamelCase
+      readability-identifier-naming.UnionCase: CamelCase
+
+      # Functions: snake_case
+      readability-identifier-naming.FunctionCase: lower_case
+      readability-identifier-naming.MethodCase: lower_case
+
+      # Variables: snake_case
+      readability-identifier-naming.VariableCase: lower_case
+      readability-identifier-naming.ParameterCase: lower_case
+      readability-identifier-naming.ConstantParameterCase: lower_case
+      readability-identifier-naming.LocalVariableCase: lower_case
+
+      # Constants: SCREAMING_CASE
+      readability-identifier-naming.ConstantCase: UPPER_CASE
+      readability-identifier-naming.ConstexprVariableCase: UPPER_CASE
+      readability-identifier-naming.EnumConstantCase: UPPER_CASE
+      readability-identifier-naming.StaticConstantCase: UPPER_CASE
+      readability-identifier-naming.GlobalConstantCase: UPPER_CASE
+
+      # Members: trailing underscore
+      readability-identifier-naming.MemberCase: lower_case
+      readability-identifier-naming.MemberSuffix: _
+      readability-identifier-naming.PrivateMemberCase: lower_case
+      readability-identifier-naming.PrivateMemberSuffix: _
+      readability-identifier-naming.ProtectedMemberCase: lower_case
+      readability-identifier-naming.ProtectedMemberSuffix: _
+
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: true
+  Designators: true
+
+Hover:
+  ShowAKA: true
