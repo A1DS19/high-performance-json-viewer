@@ -1,30 +1,38 @@
-#include "imgui.h"
-#include "imgui_impl_sdl3.h"
-#include "imgui_impl_sdlrenderer3.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_sdl3.h"
+#include "imgui/imgui_impl_sdlrenderer3.h"
 
 #include <SDL3/SDL.h>
-#include <cstdio>
+#include <iostream>
+
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 800;
+constexpr float CLEAR_R = 0.45F;
+constexpr float CLEAR_G = 0.55F;
+constexpr float CLEAR_B = 0.60F;
+constexpr float CLEAR_A = 1.00F;
 
 int main() {
   if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD)) {
-    printf("Error: SDL_Init(): %s\n", SDL_GetError());
+    std::cerr << "Error: SDL_Init(): " << SDL_GetError() << "\n";
     return 1;
   }
 
   float main_scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
   SDL_WindowFlags window_flags =
       SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY;
-  SDL_Window *window = SDL_CreateWindow("JSON Viewer", (int)(1280 * main_scale),
-                                        (int)(800 * main_scale), window_flags);
+  SDL_Window *window = SDL_CreateWindow(
+      "JSON Viewer", static_cast<int>(WINDOW_WIDTH * main_scale),
+      static_cast<int>(WINDOW_HEIGHT * main_scale), window_flags);
   if (window == nullptr) {
-    printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
+    std::cerr << "Error: SDL_CreateWindow(): " << SDL_GetError() << "\n";
     return 1;
   }
 
   SDL_Renderer *renderer = SDL_CreateRenderer(window, nullptr);
   SDL_SetRenderVSync(renderer, 1);
   if (renderer == nullptr) {
-    printf("Error: SDL_CreateRenderer(): %s\n", SDL_GetError());
+    std::cerr << "Error: SDL_CreateRenderer(): " << SDL_GetError() << "\n";
     return 1;
   }
   SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
@@ -32,9 +40,9 @@ int main() {
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
-  ImGuiIO &input_output = ImGui::GetIO();
-  input_output.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-  input_output.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+  ImGuiIO &imgui_io = ImGui::GetIO();
+  imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+  imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
   ImGui::StyleColorsDark();
 
@@ -45,18 +53,20 @@ int main() {
   ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
   ImGui_ImplSDLRenderer3_Init(renderer);
 
-  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+  ImVec4 clear_color = ImVec4(CLEAR_R, CLEAR_G, CLEAR_B, CLEAR_A);
 
   bool done = false;
   while (!done) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
       ImGui_ImplSDL3_ProcessEvent(&event);
-      if (event.type == SDL_EVENT_QUIT)
+      if (event.type == SDL_EVENT_QUIT) {
         done = true;
+      }
       if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED &&
-          event.window.windowID == SDL_GetWindowID(window))
+          event.window.windowID == SDL_GetWindowID(window)) {
         done = true;
+      }
     }
 
     if (SDL_GetWindowFlags(window) & SDL_WINDOW_MINIMIZED) {
@@ -68,16 +78,15 @@ int main() {
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 
-    // Your UI here
     ImGui::Begin("JSON Viewer");
     ImGui::Text("Hello!");
-    ImGui::ColorEdit3("clear color", (float *)&clear_color);
-    ImGui::Text("%.1f FPS", input_output.Framerate);
+    ImGui::ColorEdit3("clear color", reinterpret_cast<float *>(&clear_color));
+    ImGui::Text("%.1f FPS", imgui_io.Framerate);
     ImGui::End();
 
     ImGui::Render();
-    SDL_SetRenderScale(renderer, input_output.DisplayFramebufferScale.x,
-                       input_output.DisplayFramebufferScale.y);
+    SDL_SetRenderScale(renderer, imgui_io.DisplayFramebufferScale.x,
+                       imgui_io.DisplayFramebufferScale.y);
     SDL_SetRenderDrawColorFloat(renderer, clear_color.x, clear_color.y,
                                 clear_color.z, clear_color.w);
     SDL_RenderClear(renderer);
