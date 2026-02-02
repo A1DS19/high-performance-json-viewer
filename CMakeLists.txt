@@ -42,10 +42,12 @@ set_target_properties(main PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
 )
 
-# Find and link SDL3
+# Find and link dependencies
 find_package(SDL3 REQUIRED)
+find_package(simdjson REQUIRED)
+find_package(ZLIB REQUIRED)
 
-target_link_libraries(main PRIVATE SDL3::SDL3)
+target_link_libraries(main PRIVATE SDL3::SDL3 simdjson::simdjson ZLIB::ZLIB)
 
 # Optional: Enable testing
 # enable_testing()

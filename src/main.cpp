@@ -1,6 +1,7 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl3.h"
 #include "imgui/imgui_impl_sdlrenderer3.h"
+#include "panel_manager.hpp"
 
 #include <SDL3/SDL.h>
 #include <iostream>
@@ -78,11 +79,7 @@ int main() {
     ImGui_ImplSDL3_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("JSON Viewer");
-    ImGui::Text("Hello!");
-    ImGui::ColorEdit3("clear color", reinterpret_cast<float *>(&clear_color));
-    ImGui::Text("%.1f FPS", imgui_io.Framerate);
-    ImGui::End();
+    PanelManager::instance().draw_all();
 
     ImGui::Render();
     SDL_SetRenderScale(renderer, imgui_io.DisplayFramebufferScale.x,
