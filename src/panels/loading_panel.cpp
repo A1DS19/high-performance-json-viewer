@@ -57,7 +57,7 @@ void draw_loading_panel() {
 
   // Loading indicator
   if (state.is_loading) {
-    ImGui::Text("Loading...");
+    ImGui::Text("Please wait...");
   }
 
   // Close button when complete
