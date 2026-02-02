@@ -65,7 +65,7 @@ void draw_file_chooser_panel() {
 
   if (ImGui::Button("Browse", ImVec2(BUTTON_WIDTH, 0.0F))) {
     std::array<SDL_DialogFileFilter, 1> filters = {
-        {{"JSON files", "json;ndjson"}}};
+        {{"JSON files", "json;ndjson;ndjson.gz"}}};
     SDL_ShowOpenFileDialog(file_dialog_callback, &path_buffer, nullptr,
                            filters.data(), filters.size(), nullptr, false);
   }
