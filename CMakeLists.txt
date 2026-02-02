@@ -42,9 +42,10 @@ set_target_properties(main PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
 )
 
-# Optional: link libraries from lib/
-# link_directories(${CMAKE_SOURCE_DIR}/lib)
-# target_link_libraries(main PRIVATE your_library_name)
+# Find and link SDL3
+find_package(SDL3 REQUIRED)
+
+target_link_libraries(main PRIVATE SDL3::SDL3)
 
 # Optional: Enable testing
 # enable_testing()
