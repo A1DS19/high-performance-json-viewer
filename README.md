@@ -1,5 +1,7 @@
 # JSON Viewer
 
+[![Build](https://github.com/A1DS19/high-performance-json-viewer/actions/workflows/build.yml/badge.svg)](https://github.com/A1DS19/high-performance-json-viewer/actions/workflows/build.yml)
+
 A high performance JSON viewer.
 
 ## Build
