@@ -20,8 +20,27 @@ jobs:
           sudo apt-get install -y \
             build-essential \
             cmake \
-            libsdl3-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            libwayland-dev \
+            libxkbcommon-dev \
+            libegl1-mesa-dev \
+            libgles2-mesa-dev \
+            libx11-dev \
+            libxext-dev \
+            libxrandr-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libxinerama-dev \
+            libxxf86vm-dev \
+            libxss-dev
+
+      - name: Build SDL3 from source
+        run: |
+          git clone --depth 1 https://github.com/libsdl-org/SDL.git SDL3
+          cd SDL3
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DSDL_SHARED=OFF -DSDL_STATIC=ON
+          cmake --build build -j$(nproc)
+          sudo cmake --install build
 
       - name: Build Release
         run: make release
