@@ -32,7 +32,12 @@ jobs:
             libxi-dev \
             libxinerama-dev \
             libxxf86vm-dev \
-            libxss-dev
+            libxss-dev \
+            libxtst-dev \
+            libpulse-dev \
+            libasound2-dev \
+            libpipewire-0.3-dev \
+            libdecor-0-dev
 
       - name: Build SDL3 from source
         run: |
