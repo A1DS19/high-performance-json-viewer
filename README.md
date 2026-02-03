@@ -25,6 +25,8 @@ make install
 ```
 Installs to `/usr/local/bin/json_viewer`.
 
+Or grab the most recent release.
+
 ## Screenshots
 
 ![File Path](assets/file_path.png)
