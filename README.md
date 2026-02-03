@@ -35,6 +35,3 @@ Installs to `/usr/local/bin/json_viewer`.
 
 ![Document View](assets/document_view.png)
 
-![Document Opened](assets/document_opened.png)
-
-

@@ -39,6 +39,14 @@ jobs:
             libpipewire-0.3-dev \
             libdecor-0-dev
 
+      - name: Build simdjson from source
+        run: |
+          git clone --depth 1 https://github.com/simdjson/simdjson.git
+          cd simdjson
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j$(nproc)
+          sudo cmake --install build
+
       - name: Build SDL3 from source
         run: |
           git clone --depth 1 https://github.com/libsdl-org/SDL.git SDL3
