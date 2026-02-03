@@ -8,18 +8,6 @@
 
 A high performance JSON viewer.
 
-## Screenshots
-
-![File Path](assets/file_path.png)
-
-![Decompressing](assets/decompressing.png)
-
-![Parsing](assets/parsing.png)
-
-![Document View](assets/document_view.png)
-
-![Document Opened](assets/document_opened.png)
-
 ## Build
 
 ### Release / Production
@@ -35,5 +23,18 @@ This creates an optimized binary in `bin/main`.
 ```bash
 make install
 ```
-
 Installs to `/usr/local/bin/json_viewer`.
+
+## Screenshots
+
+![File Path](assets/file_path.png)
+
+![Decompressing](assets/decompressing.png)
+
+![Parsing](assets/parsing.png)
+
+![Document View](assets/document_view.png)
+
+![Document Opened](assets/document_opened.png)
+
+
