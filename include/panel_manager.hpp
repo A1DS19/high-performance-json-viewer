@@ -16,9 +16,7 @@ public:
     }
 
     // Register a panel's draw function
-    void add(std::function<void()> draw_fn) {
-        panels_.push_back(std::move(draw_fn));
-    }
+    void add(std::function<void()> draw_fn) { panels_.push_back(std::move(draw_fn)); }
 
     // Call all registered panel draw functions (call once per frame)
     void draw_all() const {
